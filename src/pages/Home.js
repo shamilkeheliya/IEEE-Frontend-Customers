@@ -8,30 +8,7 @@ import {
 import React from "react";
 import "./HomeStyles.css";
 import { Link } from "react-router-dom";
-import mapboxgl from 'mapbox-gl';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2hldGhha2FzbCIsImEiOiJjbDBndmlpcHYwMmtyM2lueW5tcWRoenBwIn0.kdl7_icmw0zii85l8IxrQg';
-
-class MapCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.mapContainer = React.createRef();
-  }
-
-  componentDidMount() {
-    const { lng, lat, zoom } = this.props;
-    this.map = new mapboxgl.Map({
-      container: this.mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [lng, lat],
-      zoom: zoom
-    });
-  }
-
-  componentWillUnmount() {
-    this.map.remove();
-  }
-}
 function Home() {
   const pharmacyList = [
     {
