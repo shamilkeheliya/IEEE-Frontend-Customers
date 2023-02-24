@@ -6,8 +6,32 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import "./HomeStyles.css";
 import { Link } from "react-router-dom";
+import mapboxgl from 'mapbox-gl';
 
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2hldGhha2FzbCIsImEiOiJjbDBndmlpcHYwMmtyM2lueW5tcWRoenBwIn0.kdl7_icmw0zii85l8IxrQg';
+
+class MapCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.mapContainer = React.createRef();
+  }
+
+  componentDidMount() {
+    const { lng, lat, zoom } = this.props;
+    this.map = new mapboxgl.Map({
+      container: this.mapContainer.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [lng, lat],
+      zoom: zoom
+    });
+  }
+
+  componentWillUnmount() {
+    this.map.remove();
+  }
+}
 function Home() {
   const pharmacyList = [
     {
@@ -37,7 +61,11 @@ function Home() {
   ];
 
   return (
+    
     <div>
+      <div className="background-image">
+        <h1>Search Results</h1>
+      </div>
       <Grid Container md={12} mt={5}>
         {/* <Link to="/about"> GO TO THE ABOUT PAGE </Link>
         <Grid>sdsdsd</Grid> */}
@@ -77,8 +105,18 @@ function Home() {
           </Typography>
         </Grid>
       </Grid>
+      <div className="search-card">
+        <div className="Typography">
+          <h2>Pharmacy Name</h2>
+          <h4 className="active">District</h4>
+          <h4>Medicine Name</h4>
+          <h4>Phone Number</h4>
+          <h4>Address</h4>
+        </div>
+        <div className="Mapbox-container">
+        </div>
+      </div>
     </div>
   );
 }
-
 export default Home;
